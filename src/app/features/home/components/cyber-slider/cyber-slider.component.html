@@ -1,0 +1,30 @@
+<div class="cyber-slider">
+  <swiper-container
+    [pagination]="true"
+    [navigation]="true"
+    [loop]="true"
+    [autoplay]="{ delay: 5000, disableOnInteraction: false }"
+    [effect]="'fade'"
+    [keyboard]="{ enabled: true }"
+    [speed]="1000"
+    class="swiper-container"
+  >
+    <!-- Boutons de navigation -->
+    <div class="swiper-button-prev" slot="button-prev"></div>
+    <div class="swiper-button-next" slot="button-next"></div>
+    <swiper-slide *ngFor="let slide of slides" [ngClass]="'theme-' + slide.theme">
+      <div class="slide-bg" [style.background-image]="'url(' + slide.image + ')'"></div>
+      <div class="slide-content">
+        <div class="slide-text">
+          <h2 class="slide-title">{{ slide.title }}</h2>
+          <p class="slide-description">{{ slide.description }}</p>
+          <a [routerLink]="slide.buttonLink" class="slide-button">
+            {{ slide.buttonText }}
+            <span class="button-icon">→</span>
+          </a>
+        </div>
+      </div>
+      <div class="slide-overlay"></div>
+    </swiper-slide>
+  </swiper-container>
+</div>

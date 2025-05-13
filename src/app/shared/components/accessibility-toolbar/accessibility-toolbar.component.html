@@ -1,0 +1,66 @@
+<div class="accessibility-toolbar" [class.expanded]="isExpanded">
+  <button mat-icon-button (click)="toggleToolbar()" class="toggle-button" matTooltip="Paramètres d'accessibilité">
+    <mat-icon>accessibility</mat-icon>
+  </button>
+
+  <div class="toolbar-content">
+    <div class="toolbar-section">
+      <button mat-icon-button (click)="toggleTheme()" matTooltip="Basculer le thème">
+        <mat-icon>{{ getThemeIcon() }}</mat-icon>
+      </button>
+    </div>
+
+    <div class="toolbar-section">
+      <button mat-icon-button [matMenuTriggerFor]="colorMenu" matTooltip="Couleur d'accent">
+        <mat-icon [style.color]="'var(--accent-' + currentAccent + ')'">palette</mat-icon>
+      </button>
+      <mat-menu #colorMenu="matMenu">
+        <button mat-menu-item (click)="setAccentColor('blue')">
+          <mat-icon [style.color]="'#2196F3'">fiber_manual_record</mat-icon>
+          <span>Bleu</span>
+        </button>
+        <button mat-menu-item (click)="setAccentColor('green')">
+          <mat-icon [style.color]="'#4CAF50'">fiber_manual_record</mat-icon>
+          <span>Vert</span>
+        </button>
+        <button mat-menu-item (click)="setAccentColor('purple')">
+          <mat-icon [style.color]="'#9C27B0'">fiber_manual_record</mat-icon>
+          <span>Violet</span>
+        </button>
+        <button mat-menu-item (click)="setAccentColor('orange')">
+          <mat-icon [style.color]="'#FF9800'">fiber_manual_record</mat-icon>
+          <span>Orange</span>
+        </button>
+        <button mat-menu-item (click)="setAccentColor('red')">
+          <mat-icon [style.color]="'#F44336'">fiber_manual_record</mat-icon>
+          <span>Rouge</span>
+        </button>
+      </mat-menu>
+    </div>
+
+    <div class="toolbar-section">
+      <button mat-icon-button (click)="changeFontSize(-1)" matTooltip="Réduire la taille du texte">
+        <mat-icon>text_decrease</mat-icon>
+      </button>
+      <span class="font-size-label">{{ fontSize }}px</span>
+      <button mat-icon-button (click)="changeFontSize(1)" matTooltip="Augmenter la taille du texte">
+        <mat-icon>text_increase</mat-icon>
+      </button>
+      <button mat-icon-button (click)="resetFontSize()" matTooltip="Réinitialiser la taille du texte">
+        <mat-icon>restart_alt</mat-icon>
+      </button>
+    </div>
+
+    <div class="toolbar-section">
+      <button mat-icon-button (click)="toggleHighContrast()" matTooltip="Contraste élevé">
+        <mat-icon>{{ getContrastIcon() }}</mat-icon>
+      </button>
+    </div>
+
+    <div class="toolbar-section">
+      <button mat-icon-button (click)="toggleReducedMotion()" matTooltip="Mouvement réduit">
+        <mat-icon>{{ getMotionIcon() }}</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>

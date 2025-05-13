@@ -1,0 +1,149 @@
+<div class="learning-path-container">
+  <div class="hero-section">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <h1 class="animate__animated animate__fadeInDown">Parcours d'Apprentissage en Cybersécurité</h1>
+      <p class="animate__animated animate__fadeIn">Découvrez notre parcours complet pour devenir un expert en cybersécurité</p>
+      <div class="progress-bar">
+        <div class="progress"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="path-steps">
+    <!-- Étape 1 -->
+    <div class="step-card" [class.active]="currentStep >= 1">
+      <div class="step-number">1</div>
+      <div class="step-content">
+        <h3 class="animate__animated animate__fadeInUp">Fondamentaux de la Cybersécurité</h3>
+        <p class="animate__animated animate__fadeIn">Découvrez les concepts de base de la cybersécurité, y compris la terminologie, les menaces courantes et les principes de sécurité.</p>
+        <div class="step-details">
+          <span class="duration">4 semaines</span>
+          <span class="courses">3 cours</span>
+        </div>
+        <button class="start-btn" (click)="startStep(1)">Commencer</button>
+      </div>
+    </div>
+
+    <!-- Étape 2 -->
+    <div class="step-card" [class.active]="currentStep >= 2">
+      <div class="step-number">2</div>
+      <div class="step-content">
+        <h3 class="animate__animated animate__fadeInUp">Sécurité des Réseaux</h3>
+        <p class="animate__animated animate__fadeIn">Apprenez à sécuriser les réseaux, comprendre les protocoles et mettre en place des pare-feu efficaces.</p>
+        <div class="step-details">
+          <span class="duration">6 semaines</span>
+          <span class="courses">4 cours</span>
+        </div>
+        <button class="start-btn" (click)="startStep(2)">Commencer</button>
+      </div>
+    </div>
+
+    <!-- Étape 3 -->
+    <div class="step-card" [class.active]="currentStep >= 3">
+      <div class="step-number">3</div>
+      <div class="step-content">
+        <h3 class="animate__animated animate__fadeInUp">Test d'Intrusion</h3>
+        <p class="animate__animated animate__fadeIn">Découvrez les techniques de test d'intrusion éthique et apprenez à identifier les vulnérabilités.</p>
+        <div class="step-details">
+          <span class="duration">8 semaines</span>
+          <span class="courses">5 cours</span>
+        </div>
+        <button class="start-btn" (click)="startStep(3)">Commencer</button>
+      </div>
+    </div>
+
+    <!-- Étape 4 -->
+    <div class="step-card" [class.active]="currentStep >= 4">
+      <div class="step-number">4</div>
+      <div class="step-content">
+        <h3 class="animate__animated animate__fadeInUp">Développement Sécurisé</h3>
+        <p class="animate__animated animate__fadeIn">Apprenez à développer des applications sécurisées et à implémenter des bonnes pratiques de sécurité.</p>
+        <div class="step-details">
+          <span class="duration">6 semaines</span>
+          <span class="courses">4 cours</span>
+        </div>
+        <button class="start-btn" (click)="startStep(4)">Commencer</button>
+      </div>
+    </div>
+
+    <!-- Étape 5 -->
+    <div class="step-card" [class.active]="currentStep >= 5">
+      <div class="step-number">5</div>
+      <div class="step-content">
+        <h3 class="animate__animated animate__fadeInUp">Administration Système Sécurisée</h3>
+        <p class="animate__animated animate__fadeIn">Maîtrisez l'administration système sécurisée pour Linux et Windows.</p>
+        <div class="step-details">
+          <span class="duration">8 semaines</span>
+          <span class="courses">5 cours</span>
+        </div>
+        <button class="start-btn" (click)="startStep(5)">Commencer</button>
+      </div>
+    </div>
+
+    <!-- Étape 6 -->
+    <div class="step-card" [class.active]="currentStep >= 6">
+      <div class="step-number">6</div>
+      <div class="step-content">
+        <h3 class="animate__animated animate__fadeInUp">Droit et Éthique de la Cybersécurité</h3>
+        <p class="animate__animated animate__fadeIn">Comprenez les implications légales et éthiques de la cybersécurité.</p>
+        <div class="step-details">
+          <span class="duration">5 semaines</span>
+          <span class="courses">3 cours</span>
+        </div>
+        <button class="start-btn" (click)="startStep(6)">Commencer</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="path-features">
+    <div class="feature-card">
+      <div class="feature-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19 21L5 12l14-9"/>
+          <polyline points="9 10 9 4 15 4 15 10"/>
+          <line x1="12" y1="18" x2="12" y2="12"/>
+        </svg>
+      </div>
+      <div class="feature-content">
+        <h3 class="animate__animated animate__fadeInUp">Progression Personnalisée</h3>
+        <p class="animate__animated animate__fadeIn">Suivez votre progression et adaptez le parcours à votre rythme d'apprentissage.</p>
+      </div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+          <line x1="8" y1="21" x2="16" y2="21"></line>
+          <line x1="12" y1="17" x2="12" y2="21"></line>
+        </svg>
+      </div>
+      <div class="feature-content">
+        <h3 class="animate__animated animate__fadeInUp">Projets Pratiques</h3>
+        <p class="animate__animated animate__fadeIn">Appliquez vos connaissances avec des projets réels et des cas d'étude.</p>
+      </div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+          <circle cx="9" cy="7" r="4"></circle>
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+          <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+        </svg>
+      </div>
+      <div class="feature-content">
+        <h3 class="animate__animated animate__fadeInUp">Support Expert</h3>
+        <p class="animate__animated animate__fadeIn">Accédez à un support technique et à une communauté d'experts.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta-section">
+    <div class="cta-content">
+      <h2 class="animate__animated animate__fadeInUp">Prêt à Commencer Votre Parcours ?</h2>
+      <p class="animate__animated animate__fadeIn">Rejoignez des milliers d'étudiants qui ont déjà commencé leur parcours en cybersécurité avec nous.</p>
+      <button class="primary-btn" (click)="startLearning()">Commencer le Parcours</button>
+    </div>
+  </div>
+</div>

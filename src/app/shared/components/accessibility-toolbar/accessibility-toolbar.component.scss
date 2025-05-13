@@ -1,0 +1,430 @@
+@use '@angular/material' as mat;
+@use 'sass:map';
+
+// Variables pour les transitions optimisées
+$fast-transition: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+$medium-transition: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+$slow-transition: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+
+$toolbar-height: 48px;
+$toolbar-expanded-width: 320px;
+$toolbar-collapsed-width: 48px;
+$transition-speed: 0.3s;
+
+.accessibility-toolbar {
+  position: fixed;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  background-color: var(--toolbar-bg, #ffffff);
+  border: 1px solid var(--border-color, #e0e0e0);
+  border-radius: 24px 0 0 24px;
+  box-shadow: -2px 0 15px rgba(0, 0, 0, 0.08);
+  z-index: 1000;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  --button-bg: rgba(0, 0, 0, 0.03);
+  transition: all $transition-speed ease;
+  overflow: hidden;
+  height: $toolbar-height;
+  width: $toolbar-collapsed-width;
+  border: 1px solid var(--border-color);
+  
+  [data-theme="dark"] & {
+    background-color: rgba(30, 41, 59, 0.9);
+    border-color: rgba(255, 255, 255, 0.1);
+    box-shadow: -2px 0 15px rgba(0, 0, 0, 0.3);
+    --button-bg: rgba(255, 255, 255, 0.05);
+  }
+
+  &.expanded {
+    width: $toolbar-expanded-width;
+    
+    .toggle-button {
+      .mat-icon {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
+  .toggle-button {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 1001; // Au-dessus du contenu
+    background-color: var(--primary-color);
+    color: white;
+    will-change: background-color, transform;
+    transition: background-color $fast-transition, transform $fast-transition;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    width: $toolbar-collapsed-width;
+    height: $toolbar-height;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    
+    &:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+    
+    .mat-icon {
+      will-change: transform;
+      transition: transform $fast-transition, color $fast-transition, opacity $fast-transition;
+      transform: translateZ(0); // Active l'accélération matérielle
+      font-size: 24px;
+      width: 24px;
+      height: 24px;
+      display: flex !important; // Forcer l'affichage
+      align-items: center;
+      justify-content: center;
+      color: var(--text-primary);
+      opacity: 0.9;
+      
+      [data-theme="dark"] & {
+        color: rgba(255, 255, 255, 0.95);
+        opacity: 1;
+      }
+    }
+  }
+
+  .toolbar-content {
+    display: flex;
+    height: 100%;
+    margin-left: $toolbar-collapsed-width;
+    padding: 0 16px;
+    align-items: center;
+    opacity: 1; // Toujours visible
+    visibility: visible; // Toujours visible
+    background-color: transparent;
+    will-change: transform;
+    transition: transform $fast-transition;
+    gap: 8px;
+    overflow: visible;
+    transform: translateX(10px);
+    
+    [data-theme="dark"] & {
+      background-color: transparent;
+    }
+    
+    .accessibility-toolbar.expanded & {
+      transform: translateX(0);
+    }
+    
+    button {
+      min-width: 42px;
+      height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 10px;
+      background-color: var(--button-bg, rgba(0, 0, 0, 0.05));
+      color: var(--text-primary);
+      will-change: transform, background-color, color, box-shadow, filter;
+      transition: all $fast-transition;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      transform: translateZ(0);
+      border: 1px solid transparent;
+      outline: none;
+      cursor: pointer;
+      padding: 0;
+      margin: 0 2px;
+      position: relative;
+      overflow: hidden;
+      
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
+        opacity: 0.5;
+        transition: opacity $fast-transition;
+      }
+      
+      &:hover:not([disabled]) {
+        background-color: var(--primary-color);
+        color: white;
+        transform: translateY(-2px) translateZ(0);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        border-color: rgba(255, 255, 255, 0.1);
+        
+        &::before {
+          opacity: 0.8;
+        }
+      }
+      
+      &:active:not([disabled]) {
+        transform: translateY(0) translateZ(0);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      }
+      
+      .mat-icon {
+        font-size: 20px;
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+
+  // La transition d'opacité est maintenant gérée directement dans .toolbar-content
+
+  .toolbar-section {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+    z-index: 1000; // Assure que les menus déroulants sont au-dessus des autres éléments
+    
+    button {
+      min-width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      
+      .mat-icon {
+        font-size: 22px;
+        width: 22px;
+        height: 22px;
+      }
+      
+      &:hover .mat-icon {
+        opacity: 1;
+        transform: scale(1.1) translateZ(0);
+      }
+    }
+    will-change: transform;
+    padding: 4px 0;
+    
+    button {
+      .mat-icon {
+        filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+        transition: all $fast-transition;
+        opacity: 0.9;
+        
+        [data-theme="dark"] & {
+          filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
+          opacity: 1;
+        }
+      }
+      
+      &:hover {
+        .mat-icon {
+          transform: scale(1.15) translateZ(0);
+          filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+          opacity: 1;
+          
+          [data-theme="dark"] & {
+            filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.5));
+          }
+        }
+      }
+      
+      // Effet de surbrillance au survol
+      &::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle at center, rgba(255,255,255,0.2) 0%, transparent 70%);
+        transform: translate(-50%, -50%) scale(0.9);
+        opacity: 0;
+        transition: all $fast-transition;
+        pointer-events: none;
+        border-radius: 8px;
+      }
+      
+      }
+      
+      &:hover::after {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+      }
+    }
+    
+    & + .toolbar-section::before {
+      content: '';
+      position: absolute;
+      left: -6px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 1px;
+      height: 24px;
+      background-color: var(--border-color);
+      backface-visibility: hidden; // Améliore les performances
+    }
+
+    .font-size-label {
+      min-width: 40px;
+      text-align: center;
+      font-size: 0.875em;
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+    
+    .mat-menu-panel {
+      min-width: 160px;
+      
+      .mat-menu-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        
+        .mat-icon {
+          margin-right: 0;
+        }
+      }
+    }
+  }
+
+  // Styles pour les icônes dans la barre d'outils
+  .mat-icon {
+    // Assurer que les icônes sont toujours visibles
+    opacity: 0.9;
+    transition: all $fast-transition;
+    
+    // Améliorer le contraste au survol
+    button:hover & {
+      opacity: 1;
+      filter: brightness(1.2);
+    }
+  }
+  
+  // Styles pour le mode sombre
+  :host-context([data-theme="dark"]) {
+    --toolbar-bg: #424242;
+    color: white;
+    
+    .mat-icon {
+      filter: brightness(1.2);
+    }
+    
+    button:hover .mat-icon {
+      filter: brightness(1.4);
+    }
+  }
+  
+  // Styles pour le contraste élevé
+  :host-context(.high-contrast) {
+    .toolbar-content {
+      button {
+        border: 2px solid black !important;
+      }
+    }
+  }
+
+// Animation réduite pour le mode mouvement réduit
+:host-context(.reduced-motion) {
+  * {
+    transition: none !important;
+    transition-duration: 0.01ms !important;
+    animation: none !important;
+    animation-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .accessibility-toolbar {
+    transition: none !important;
+  }
+}
+
+// Styles responsifs
+/* Styles pour le bouton d'accessibilité réduit */
+.accessibility-toolbar:not(.expanded) {
+  .toggle-button {
+    .mat-icon {
+      animation: pulse 2s infinite;
+      animation-timing-function: ease-in-out;
+      will-change: transform;
+    }
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1) translateZ(0);
+  }
+  50% {
+    transform: scale(1.2) translateZ(0);
+  }
+  100% {
+    transform: scale(1) translateZ(0);
+  }
+}
+
+/* Styles pour le contraste élevé */
+:host-context(.high-contrast) {
+  .accessibility-toolbar {
+    border: 2px solid #000 !important;
+    
+    .toggle-button {
+      border: 2px solid #000 !important;
+      background-color: #fff !important;
+      color: #000 !important;
+    }
+    
+    .toolbar-content button {
+      border: 2px solid #000 !important;
+    }
+  }
+}
+
+/* Styles responsifs */
+@media (max-width: 600px) {
+  .accessibility-toolbar {
+    top: auto;
+    bottom: 0;
+    transform: none;
+    width: 100%;
+    height: $toolbar-height;
+    border-radius: 0;
+    left: 0;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+
+    &.expanded {
+      height: auto;
+      min-height: $toolbar-height;
+      max-height: 80vh;
+      overflow-y: auto;
+      padding-bottom: env(safe-area-inset-bottom);
+      
+      .toolbar-content {
+        padding: 12px 8px;
+      }
+    }
+
+    .toolbar-content {
+      flex-wrap: wrap;
+      margin-left: $toolbar-collapsed-width;
+      padding: 8px;
+      gap: 8px;
+      
+      .toolbar-section {
+        margin: 4px 0;
+        
+        &::before {
+          display: none;
+        }
+      }
+    }
+    
+    .toggle-button {
+      .mat-icon {
+        animation: none;
+      }
+    }
+  }
+}
