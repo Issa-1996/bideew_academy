@@ -14,7 +14,7 @@ import { filter } from 'rxjs';
 })
 export class AppComponent implements OnInit {
   isLoginPage: boolean = false;
-  title = 'cyber-academy';
+  title = 'Bideew-academy';
 
   constructor(private themeService: ThemeService, private router: Router) {
     this.router.events
